@@ -36,7 +36,7 @@ docker run -d \
 * `-v $(pwd)/certs:/app/certs`: This ensures your pairing certificates are saved on your computer, so you don't have to re-pair the TV if you restart the container.
 
 ### 3. Open the UI
-Go to `http://localhost:8000` in your web browser.
+Go to `http://localhost:8504` in your web browser.
 
 ---
 

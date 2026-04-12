@@ -28,8 +28,8 @@ COPY . .
 RUN mkdir -p certs
 
 # Expose the app port
-EXPOSE 8000
+EXPOSE 8504
 
 # Run the application
 # Note: --host 0.0.0.0 is required to be reachable from outside the container
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8504"]
