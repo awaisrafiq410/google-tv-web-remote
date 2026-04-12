@@ -61,6 +61,7 @@ async function discoverDevices() {
 
 async function handleConnect(ip) {
     selectedIp = ip;
+    localStorage.setItem('last_tv_ip', ip);
     try {
         const response = await fetch('/connect', {
             method: 'POST',
@@ -223,5 +224,39 @@ document.querySelectorAll('[data-app]').forEach(btn => {
     btn.onclick = () => sendCommand(btn.dataset.app, { is_app: true });
 });
 
-// Initial Scan
-discoverDevices();
+// Tab Switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        if (btn.classList.contains('tab-disabled')) return;
+        
+        const tabId = btn.dataset.tab;
+        
+        // Update buttons
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Update content
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+    });
+});
+
+// Settings / Switch Device
+document.getElementById('settings-btn').onclick = () => {
+    selectedIp = null;
+    localStorage.removeItem('last_tv_ip');
+    remoteCard.classList.add('hidden');
+    setupCard.classList.remove('hidden');
+    discoverDevices();
+};
+
+// Auto-Connect on load
+window.addEventListener('load', () => {
+    const savedIp = localStorage.getItem('last_tv_ip');
+    if (savedIp) {
+        console.log("Auto-connecting to:", savedIp);
+        handleConnect(savedIp);
+    } else {
+        discoverDevices();
+    }
+});

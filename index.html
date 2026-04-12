@@ -35,77 +35,97 @@
 
         <!-- Remote Controls (Hidden initially) -->
         <div id="remote-card" class="card hidden">
+            <!-- Tab Bar -->
+            <div class="tab-bar-container">
+                <div class="tab-bar">
+                    <button class="tab-btn active" data-tab="tab-remote">
+                        <i data-lucide="gamepad-2"></i>
+                        Remote
+                    </button>
+                    <button class="tab-btn" data-tab="tab-apps">
+                        <i data-lucide="layout-grid"></i>
+                        Apps
+                    </button>
+                    <button class="tab-btn tab-disabled" data-tab="tab-kbd" title="Text input currently unavailable">
+                        <i data-lucide="keyboard"></i>
+                        Keyboard
+                    </button>
+                </div>
+                <button id="settings-btn" class="btn-remote btn-circle" style="width: 40px; height: 40px;">
+                    <i data-lucide="settings"></i>
+                </button>
+            </div>
+
             <div class="remote-grid">
-                <!-- Power & Home Bar -->
-                <div class="btn-row">
-                    <button class="btn-remote btn-circle btn-power" data-command="POWER">
-                        <i data-lucide="power"></i>
-                    </button>
-                    <button class="btn-remote btn-circle" data-command="HOME">
-                        <i data-lucide="home"></i>
-                    </button>
-                    <button class="btn-remote btn-circle" data-command="BACK">
-                        <i data-lucide="arrow-left"></i>
-                    </button>
+                <!-- Tab content: Remote -->
+                <div id="tab-remote" class="tab-content active">
+                    <!-- Navigation (D-Pad) -->
+                    <div class="dpad">
+                        <button class="btn-remote btn-up" data-command="DPAD_UP"><i data-lucide="chevron-up"></i></button>
+                        <button class="btn-remote btn-left" data-command="DPAD_LEFT"><i data-lucide="chevron-left"></i></button>
+                        <button class="btn-remote btn-center" data-command="DPAD_CENTER">OK</button>
+                        <button class="btn-remote btn-right" data-command="DPAD_RIGHT"><i data-lucide="chevron-right"></i></button>
+                        <button class="btn-remote btn-down" data-command="DPAD_DOWN"><i data-lucide="chevron-down"></i></button>
+                    </div>
+
+                    <!-- Compact Controls (Power, Home, Back, Vol-, Mute, Vol+) -->
+                    <div class="compact-row">
+                        <button class="btn-remote btn-circle btn-power" data-command="POWER"><i data-lucide="power"></i></button>
+                        <button class="btn-remote btn-circle" data-command="HOME"><i data-lucide="home"></i></button>
+                        <button class="btn-remote btn-circle" data-command="BACK"><i data-lucide="arrow-left"></i></button>
+                        <div class="divider"></div>
+                        <button class="btn-remote btn-circle" data-command="VOLUME_DOWN"><i data-lucide="volume-1"></i></button>
+                        <button class="btn-remote btn-circle" data-command="MUTE"><i data-lucide="volume-x"></i></button>
+                        <button class="btn-remote btn-circle" data-command="VOLUME_UP"><i data-lucide="volume-2"></i></button>
+                    </div>
+
+                    <!-- Playback Row -->
+                    <div class="btn-row">
+                        <button class="btn-remote" style="width: 100%; border-radius: 16px;" data-command="MEDIA_PLAY_PAUSE">
+                            <i data-lucide="play"></i>
+                            <i data-lucide="pause"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- D-Pad -->
-                <div class="dpad">
-                    <button class="btn-remote btn-up" data-command="DPAD_UP"><i data-lucide="chevron-up"></i></button>
-                    <button class="btn-remote btn-left" data-command="DPAD_LEFT"><i data-lucide="chevron-left"></i></button>
-                    <button class="btn-remote btn-center" data-command="DPAD_CENTER">OK</button>
-                    <button class="btn-remote btn-right" data-command="DPAD_RIGHT"><i data-lucide="chevron-right"></i></button>
-                    <button class="btn-remote btn-down" data-command="DPAD_DOWN"><i data-lucide="chevron-down"></i></button>
+                <!-- Tab content: Apps -->
+                <div id="tab-apps" class="tab-content">
+                    <div class="apps-grid">
+                        <button class="app-btn" data-app="https://www.youtube.com">
+                            <img src="/assets/youtube.png" alt="YouTube" onerror="this.classList.add('hidden')">
+                            YouTube
+                        </button>
+                        <button class="app-btn" data-app="org.jellyfin.androidtv">
+                            <img src="/assets/jellyfin.png" alt="Jellyfin" onerror="this.classList.add('hidden')">
+                            Jellyfin
+                        </button>
+                        <button class="app-btn" data-app="com.google.android.youtube.tvmusic">
+                            <img src="/assets/yt_music.png" alt="YT Music" onerror="this.classList.add('hidden')">
+                            YT Music
+                        </button>
+                        <button class="app-btn" data-app="com.netmirror.app">
+                            <img src="/assets/netmirror.png" alt="Netmirror" onerror="this.classList.add('hidden')">
+                            Netmirror
+                        </button>
+                        <button class="app-btn" data-app="com.stremio.one">
+                            <img src="/assets/stremio.png" alt="Stremio" onerror="this.classList.add('hidden')">
+                            Stremio
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Volume & Media -->
-                <div class="btn-row">
-                    <button class="btn-remote btn-circle" data-command="VOLUME_DOWN"><i data-lucide="volume-1"></i></button>
-                    <button class="btn-remote btn-circle" data-command="MUTE"><i data-lucide="volume-x"></i></button>
-                    <button class="btn-remote btn-circle" data-command="VOLUME_UP"><i data-lucide="volume-2"></i></button>
+                <!-- Tab content: Keyboard -->
+                <div id="tab-kbd" class="tab-content">
+                    <div style="width: 100%;">
+                        <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Keyboard Input (Press Enter to send)</p>
+                        <input type="text" id="keyboard-input" class="kbd-input" placeholder="Type here to send text to TV...">
+                    </div>
                 </div>
-                
-                <div class="btn-row">
-                    <button class="btn-remote" style="width: 100%; border-radius: 12px; gap: 0.5rem;" data-command="MEDIA_PLAY_PAUSE">
-                        <i data-lucide="play"></i>
-                        <i data-lucide="pause"></i>
-                    </button>
-                </div>
+            </div>
 
-                <!-- Apps -->
-                <div class="apps-grid">
-                    <button class="app-btn" data-app="https://www.youtube.com">
-                        <img src="/assets/youtube.png" alt="YouTube" onerror="this.classList.add('hidden')">
-                        YouTube
-                    </button>
-                    <button class="app-btn" data-app="org.jellyfin.androidtv">
-                        <img src="/assets/jellyfin.png" alt="Jellyfin" onerror="this.classList.add('hidden')">
-                        Jellyfin
-                    </button>
-                    <button class="app-btn" data-app="com.google.android.youtube.tvmusic">
-                        <img src="/assets/yt_music.png" alt="YT Music" onerror="this.classList.add('hidden')">
-                        YT Music
-                    </button>
-                    <button class="app-btn" data-app="com.netmirror.app">
-                        <img src="/assets/netmirror.png" alt="Netmirror" onerror="this.classList.add('hidden')">
-                        Netmirror
-                    </button>
-                    <button class="app-btn" data-app="com.stremio.one">
-                        <img src="/assets/stremio.png" alt="Stremio" onerror="this.classList.add('hidden')">
-                        Stremio
-                    </button>
-                </div>
-
-                <!-- Text Input -->
-                <div style="width: 100%;">
-                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Keyboard Input (Press Enter to send)</p>
-                    <input type="text" id="keyboard-input" class="kbd-input" placeholder="Type here to send text to TV...">
-                </div>
-
-                <!-- Shortcuts Hint -->
-                <div class="shortcuts-hint">
-                    <p><span>Space</span> Play/Pause &bull; <span>M</span> Mute &bull; <span>Arrows</span> Navigate</p>
-                </div>
+            <!-- Globally Visible Shortcuts Hint -->
+            <div class="shortcuts-hint">
+                <p><span>Space</span> Play/Pause &bull; <span>M</span> Mute &bull; <span>Arrows</span> Navigate</p>
             </div>
         </div>
     </div>

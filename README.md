@@ -6,16 +6,28 @@ A sleek, premium web interface to control your Android TV / Google TV devices.
 - **Device Discovery**: Automatically find compatible TVs on your network.
 - **Secure Pairing**: Easy PIN-based pairing.
 - **App Shortcuts**: Direct buttons for YouTube, Jellyfin, YouTube Music, Netmirror, and Stremio.
+- **Auto-Connect**: Automatically jumps to the remote if a TV is already paired.
 - **Progressive Web App (PWA)**: Install the remote as a native app on your phone or desktop.
-- **Keyboard Input**: Type directly from your computer to the TV.
+- **Keyboard Shortcuts**: Control the TV using your physical keyboard on any tab.
 
-## ⌨️ Keyboard Shortcuts
-- **Arrows**: D-Pad Navigation
-- **Enter**: OK / Select
-- **Backspace / Esc**: Back
-- **Space**: Play / Pause
-- **M**: Mute / Unmute
-- **Home**: Home Screen
+## 📱 Visual Walkthrough
+
+````carousel
+![Discovery Screen](./docs/screenshots/discovery.png)
+<!-- slide -->
+![Remote Controls](./docs/screenshots/remote.png)
+<!-- slide -->
+![Apps Grid](./docs/screenshots/apps.png)
+````
+
+## ⌨️ Keyboard & Shortcuts
+- **Global Shortcuts**: `Space` (Play/Pause), `M` (Mute), and `Arrows` are active on all tabs.
+- **Keyboard Tab**: Currently disabled due to library compatibility issues with native text input. Use physical keyboard shortcuts for navigation and media control.
+
+## 🚀 Auto-Connect Logic
+The app uses your browser's local storage to remember the last TV you connected to:
+- If a pairing exists, you will land directly on the **Remote** screen.
+- To switch devices or pair a new TV, click the **Settings (Gear)** icon at the top right of the remote.
 
 ## 📱 PWA Installation
 This app is a full **Progressive Web App**. To install it:
