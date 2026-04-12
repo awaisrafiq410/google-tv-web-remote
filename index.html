@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#38bdf8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="/assets/icon-192.png">
 </head>
 <body>
     <div class="container">
@@ -92,7 +99,12 @@
                 <!-- Text Input -->
                 <div style="width: 100%;">
                     <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Keyboard Input (Press Enter to send)</p>
-                    <input type="text" id="keyboard-input" class="kbd-input" placeholder="Type here...">
+                    <input type="text" id="keyboard-input" class="kbd-input" placeholder="Type here to send text to TV...">
+                </div>
+
+                <!-- Shortcuts Hint -->
+                <div class="shortcuts-hint">
+                    <p><span>Space</span> Play/Pause &bull; <span>M</span> Mute &bull; <span>Arrows</span> Navigate</p>
                 </div>
             </div>
         </div>

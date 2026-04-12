@@ -77,5 +77,13 @@ async def serve_style():
 async def serve_app():
     return FileResponse(os.path.join(BASE_DIR, "app.js"))
 
+@app.get("/manifest.json")
+async def serve_manifest():
+    return FileResponse(os.path.join(BASE_DIR, "manifest.json"))
+
+@app.get("/sw.js")
+async def serve_sw():
+    return FileResponse(os.path.join(BASE_DIR, "sw.js"))
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8504)

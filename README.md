@@ -5,8 +5,22 @@ A sleek, premium web interface to control your Android TV / Google TV devices.
 ## Features
 - **Device Discovery**: Automatically find compatible TVs on your network.
 - **Secure Pairing**: Easy PIN-based pairing.
-- **Premium UI**: Glassmorphic design with custom app shortcuts (YouTube, Jellyfin, etc.).
+- **App Shortcuts**: Direct buttons for YouTube, Jellyfin, YouTube Music, Netmirror, and Stremio.
+- **Progressive Web App (PWA)**: Install the remote as a native app on your phone or desktop.
 - **Keyboard Input**: Type directly from your computer to the TV.
+
+## ⌨️ Keyboard Shortcuts
+- **Arrows**: D-Pad Navigation
+- **Enter**: OK / Select
+- **Backspace / Esc**: Back
+- **Space**: Play / Pause
+- **M**: Mute / Unmute
+- **Home**: Home Screen
+
+## 📱 PWA Installation
+This app is a full **Progressive Web App**. To install it:
+- **Android/Chrome**: Tap the menu and select "Install App".
+- **iOS/Safari**: Tap the Share button and select "Add to Home Screen".
 
 ## Docker Setup (Recommended)
 

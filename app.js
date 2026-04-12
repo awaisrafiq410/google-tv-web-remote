@@ -1,3 +1,12 @@
+// PWA Service Worker Registration
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('SW Registered', reg))
+            .catch(err => console.error('SW Registration Failed', err));
+    });
+}
+
 let selectedIp = null;
 
 // UI Elements
@@ -142,25 +151,77 @@ document.getElementById('cancel-pairing').onclick = () => {
 };
 
 // Remote Buttons
-document.querySelectorAll('[data-command]').forEach(btn => {
-    btn.onclick = () => sendCommand(btn.dataset.command);
+// Handle remote buttons with repeat support
+let repeatInterval = null;
+
+function startRepeat(cmd) {
+    if (repeatInterval) return;
+    sendCommand(cmd);
+    repeatInterval = setInterval(() => sendCommand(cmd), 250);
+}
+
+function stopRepeat() {
+    if (repeatInterval) {
+        clearInterval(repeatInterval);
+        repeatInterval = null;
+    }
+}
+
+document.querySelectorAll('.btn-remote').forEach(btn => {
+    const cmd = btn.dataset.command;
+    if (!cmd) return;
+
+    btn.addEventListener('mousedown', () => startRepeat(cmd));
+    btn.addEventListener('mouseup', stopRepeat);
+    btn.addEventListener('mouseleave', stopRepeat);
+    
+    // Touch support
+    btn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        startRepeat(cmd);
+    });
+    btn.addEventListener('touchend', stopRepeat);
+});
+
+// Keyboard mapping
+const KEY_MAP = {
+    'ArrowUp': 'DPAD_UP',
+    'ArrowDown': 'DPAD_DOWN',
+    'ArrowLeft': 'DPAD_LEFT',
+    'ArrowRight': 'DPAD_RIGHT',
+    'Enter': 'DPAD_CENTER',
+    'Escape': 'BACK',
+    'Backspace': 'BACK',
+    'Home': 'HOME',
+    ' ': 'MEDIA_PLAY_PAUSE',
+    'm': 'MUTE',
+    'M': 'MUTE'
+};
+
+document.addEventListener('keydown', (e) => {
+    // If user is typing in the input, don't trigger remote shortcuts
+    if (e.target.tagName === 'INPUT') {
+        if (e.key === 'Enter') {
+            const text = e.target.value;
+            if (text) {
+                sendCommand(text, { is_text: true });
+                e.target.value = '';
+            }
+        }
+        return;
+    }
+
+    const command = KEY_MAP[e.key];
+    if (command) {
+        e.preventDefault();
+        sendCommand(command);
+    }
 });
 
 // App Launchers
 document.querySelectorAll('[data-app]').forEach(btn => {
     btn.onclick = () => sendCommand(btn.dataset.app, { is_app: true });
 });
-
-// Keyboard Input
-keyboardInput.onkeydown = (e) => {
-    if (e.key === 'Enter') {
-        const text = keyboardInput.value;
-        if (text) {
-            sendCommand(text, { is_text: true });
-            keyboardInput.value = '';
-        }
-    }
-};
 
 // Initial Scan
 discoverDevices();
