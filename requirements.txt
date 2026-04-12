@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+zeroconf
+cryptography
+python-multipart
+git+https://github.com/tronikos/androidtvremote2.git
