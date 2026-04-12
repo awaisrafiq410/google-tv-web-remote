@@ -36,7 +36,15 @@ docker run -d \
 * `-v $(pwd)/certs:/app/certs`: This ensures your pairing certificates are saved on your computer, so you don't have to re-pair the TV if you restart the container.
 
 ### 3. Open the UI
-Go to `http://localhost:8504` in your web browser.
+Go to `http://localhost:8504` (or your NAS IP) in your web browser.
+
+### Troubleshooting (Connection Refused)
+If the app is running but you cannot reach the UI from your browser:
+- Ensure your host firewall allows traffic on port 8504:
+  ```bash
+  sudo ufw allow 8504/tcp
+  ```
+- If using Bridge mode, ensure the port mapping is explicitly set to `8504:8504`.
 
 ---
 
