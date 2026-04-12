@@ -12,13 +12,14 @@ A sleek, premium web interface to control your Android TV / Google TV devices.
 
 ## 📱 Visual Walkthrough
 
-````carousel
+### Discovery Screen
 ![Discovery Screen](./docs/screenshots/discovery.png)
-<!-- slide -->
+
+### Remote Controls
 ![Remote Controls](./docs/screenshots/remote.png)
-<!-- slide -->
+
+### Apps Grid
 ![Apps Grid](./docs/screenshots/apps.png)
-````
 
 ## ⌨️ Keyboard & Shortcuts
 - **Global Shortcuts**: `Space` (Play/Pause), `M` (Mute), and `Arrows` are active on all tabs.
