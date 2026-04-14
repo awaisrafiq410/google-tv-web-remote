@@ -168,7 +168,7 @@ function stopRepeat() {
     }
 }
 
-document.querySelectorAll('.btn-remote').forEach(btn => {
+document.querySelectorAll('.btn-remote, .btn-nav, .btn-media, .btn-dpad').forEach(btn => {
     const cmd = btn.dataset.command;
     if (!cmd) return;
 

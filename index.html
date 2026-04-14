@@ -35,56 +35,41 @@
 
         <!-- Remote Controls (Hidden initially) -->
         <div id="remote-card" class="card hidden">
-            <!-- Tab Bar -->
-            <div class="tab-bar-container">
-                <div class="tab-bar">
-                    <button class="tab-btn active" data-tab="tab-remote">
-                        <i data-lucide="gamepad-2"></i>
-                        Remote
-                    </button>
-                    <button class="tab-btn" data-tab="tab-apps">
-                        <i data-lucide="layout-grid"></i>
-                        Apps
-                    </button>
-                    <button class="tab-btn tab-disabled" data-tab="tab-kbd" title="Text input currently unavailable">
-                        <i data-lucide="keyboard"></i>
-                        Keyboard
-                    </button>
-                </div>
-                <button id="settings-btn" class="btn-remote btn-circle" style="width: 40px; height: 40px;">
-                    <i data-lucide="settings"></i>
-                </button>
+            <!-- Top Header Row -->
+            <div class="top-row">
+                <button class="btn-remote btn-circle btn-power" data-command="POWER"><i data-lucide="power"></i></button>
+                <div class="header-title">Remote</div>
+                <button class="btn-remote btn-circle btn-mute" data-command="MUTE"><i data-lucide="volume-x"></i></button>
             </div>
 
             <div class="remote-grid">
                 <!-- Tab content: Remote -->
                 <div id="tab-remote" class="tab-content active">
-                    <!-- Navigation (D-Pad) -->
-                    <div class="dpad">
-                        <button class="btn-remote btn-up" data-command="DPAD_UP"><i data-lucide="chevron-up"></i></button>
-                        <button class="btn-remote btn-left" data-command="DPAD_LEFT"><i data-lucide="chevron-left"></i></button>
-                        <button class="btn-remote btn-center" data-command="DPAD_CENTER">OK</button>
-                        <button class="btn-remote btn-right" data-command="DPAD_RIGHT"><i data-lucide="chevron-right"></i></button>
-                        <button class="btn-remote btn-down" data-command="DPAD_DOWN"><i data-lucide="chevron-down"></i></button>
+                    <!-- Nav Buttons (Home/Back) -->
+                    <div class="nav-row">
+                        <button class="btn-remote btn-nav" data-command="HOME"><i data-lucide="home"></i></button>
+                        <button class="btn-remote btn-nav" data-command="BACK"><i data-lucide="arrow-left"></i></button>
                     </div>
 
-                    <!-- Compact Controls (Power, Home, Back, Vol-, Mute, Vol+) -->
-                    <div class="compact-row">
-                        <button class="btn-remote btn-circle btn-power" data-command="POWER"><i data-lucide="power"></i></button>
-                        <button class="btn-remote btn-circle" data-command="HOME"><i data-lucide="home"></i></button>
-                        <button class="btn-remote btn-circle" data-command="BACK"><i data-lucide="arrow-left"></i></button>
-                        <div class="divider"></div>
-                        <button class="btn-remote btn-circle" data-command="VOLUME_DOWN"><i data-lucide="volume-1"></i></button>
-                        <button class="btn-remote btn-circle" data-command="MUTE"><i data-lucide="volume-x"></i></button>
-                        <button class="btn-remote btn-circle" data-command="VOLUME_UP"><i data-lucide="volume-2"></i></button>
+                    <!-- Centered Circular D-Pad -->
+                    <div class="dpad-container">
+                        <div class="dpad-ring">
+                            <button class="btn-dpad dpad-up" data-command="DPAD_UP"><i data-lucide="chevron-up"></i></button>
+                            <button class="btn-dpad dpad-down" data-command="DPAD_DOWN"><i data-lucide="chevron-down"></i></button>
+                            <button class="btn-dpad dpad-left" data-command="DPAD_LEFT"><i data-lucide="chevron-left"></i></button>
+                            <button class="btn-dpad dpad-right" data-command="DPAD_RIGHT"><i data-lucide="chevron-right"></i></button>
+                            <button class="btn-remote btn-center" data-command="DPAD_CENTER">OK</button>
+                        </div>
                     </div>
 
-                    <!-- Playback Row -->
-                    <div class="btn-row">
-                        <button class="btn-remote" style="width: 100%; border-radius: 16px;" data-command="MEDIA_PLAY_PAUSE">
-                            <i data-lucide="play"></i>
-                            <i data-lucide="pause"></i>
+                    <!-- Media & Volume Pill -->
+                    <div class="media-pill">
+                        <button class="btn-media" data-command="VOLUME_DOWN"><i data-lucide="minus"></i></button>
+                        <button class="btn-media btn-play" data-command="MEDIA_PLAY_PAUSE">
+                            <i data-lucide="play" style="width: 16px; height: 16px; margin-right: -2px;"></i>
+                            <i data-lucide="pause" style="width: 16px; height: 16px; margin-left: -2px;"></i>
                         </button>
+                        <button class="btn-media" data-command="VOLUME_UP"><i data-lucide="plus"></i></button>
                     </div>
                 </div>
 
@@ -121,6 +106,27 @@
                         <input type="text" id="keyboard-input" class="kbd-input" placeholder="Type here to send text to TV...">
                     </div>
                 </div>
+            </div>
+
+            <!-- Tab Bar (Moved to footer) -->
+            <div class="tab-bar-container">
+                <div class="tab-bar">
+                    <button class="tab-btn active" data-tab="tab-remote">
+                        <i data-lucide="gamepad-2"></i>
+                        Remote
+                    </button>
+                    <button class="tab-btn" data-tab="tab-apps">
+                        <i data-lucide="layout-grid"></i>
+                        Apps
+                    </button>
+                    <button class="tab-btn tab-disabled" data-tab="tab-kbd" title="Text input currently unavailable">
+                        <i data-lucide="keyboard"></i>
+                        Keyboard
+                    </button>
+                </div>
+                <button id="settings-btn" class="btn-remote btn-circle" style="width: 44px; height: 44px;">
+                    <i data-lucide="settings"></i>
+                </button>
             </div>
 
             <!-- Globally Visible Shortcuts Hint -->
