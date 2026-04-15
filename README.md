@@ -5,7 +5,7 @@ A sleek, premium web interface to control your Android TV / Google TV devices.
 ## Features
 - **Device Discovery**: Automatically find compatible TVs on your network.
 - **Secure Pairing**: Easy PIN-based pairing.
-- **App Shortcuts**: Direct buttons for YouTube, Jellyfin, YouTube Music, Netmirror, and Stremio.
+- **Customizable App Shortcuts**: Dynamic Apps tab allowing you to launch existing apps, add new Android TV packages, or run custom URLs. Core apps (YouTube, Jellyfin, YT Music) are permanent, while others can be managed or deleted.
 - **Auto-Connect**: Automatically jumps to the remote if a TV is already paired.
 - **Progressive Web App (PWA)**: Install the remote as a native app on your phone or desktop.
 - **Keyboard Shortcuts**: Control the TV using your physical keyboard on any tab.
@@ -18,8 +18,15 @@ A sleek, premium web interface to control your Android TV / Google TV devices.
 ### Remote Controls
 ![Remote Controls](./docs/screenshots/remote.png)
 
-### Apps Grid
+### Apps Grid / Manage Apps
 ![Apps Grid](./docs/screenshots/apps.png)
+
+## 🧩 App Management
+The **Apps Tab** has a dynamic app management system where you can customize your experience:
+- **Add New Apps**: Click "Manage Apps" to open the configuration modal. You can add new buttons by supplying the `App Name`, the `Package Name` (e.g., `com.netflix.ninja`) or a direct `Web URL` (e.g., `https://www.netflix.com`), and an `Icon URL` to display.
+- **Delete Apps**: You can delete custom apps to declutter your interface. Built-in defaults like Stremio, Netmirror, and On Stream are also removable. 
+- **Permanent Apps**: Core ecosystem apps (YouTube, YT Music, Jellyfin) are permanently protected and cannot be deleted.
+- **Persistence**: Your customized app list is stored locally in your browser's `localStorage` and will persist across sessions.
 
 ## ⌨️ Keyboard & Shortcuts
 - **Global Shortcuts**: `Space` (Play/Pause), `M` (Mute), and `Arrows` are active on all tabs.
