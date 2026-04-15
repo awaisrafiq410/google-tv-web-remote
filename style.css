@@ -461,6 +461,40 @@ h1 {
     z-index: 100;
 }
 
+.manage-app-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+}
+
+.btn-delete {
+    background: transparent;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.btn-delete:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.btn-delete:disabled {
+    color: var(--text-secondary);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.btn-delete:disabled:hover {
+    background: transparent;
+}
+
 .pin-modal {
     background: var(--bg-color);
     padding: 2.5rem;

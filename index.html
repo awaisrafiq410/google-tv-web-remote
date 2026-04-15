@@ -83,28 +83,13 @@
 
                 <!-- Tab content: Apps -->
                 <div id="tab-apps" class="tab-content">
-                    <div class="apps-grid">
-                        <button class="app-btn" data-app="https://www.youtube.com">
-                            <img src="/assets/youtube.png" alt="YouTube" onerror="this.classList.add('hidden')">
-                            YouTube
-                        </button>
-                        <button class="app-btn" data-app="org.jellyfin.androidtv">
-                            <img src="/assets/jellyfin.png" alt="Jellyfin" onerror="this.classList.add('hidden')">
-                            Jellyfin
-                        </button>
-                        <button class="app-btn" data-app="com.google.android.youtube.tvmusic">
-                            <img src="/assets/yt_music.png" alt="YT Music" onerror="this.classList.add('hidden')">
-                            YT Music
-                        </button>
-                        <button class="app-btn" data-app="app.netmirror.newtv">
-                            <img src="/assets/netmirror.png" alt="Netmirror" onerror="this.classList.add('hidden')">
-                            Netmirror
-                        </button>
-                        <button class="app-btn" data-app="com.stremio.one">
-                            <img src="/assets/stremio.png" alt="Stremio" onerror="this.classList.add('hidden')">
-                            Stremio
-                        </button>
+                    <div class="apps-grid" id="apps-container">
+                        <!-- Apps will be injected here via JS -->
                     </div>
+                    <button id="open-manage-apps" class="btn-primary" style="margin-top: 1.5rem; width: auto; background: var(--glass); border: 1px solid var(--glass-border); color: var(--text-primary);">
+                        <i data-lucide="settings-2" style="width: 16px; height: 16px; margin-right: 8px; vertical-align: middle;"></i>
+                        Manage Apps
+                    </button>
                 </div>
 
                 <!-- Tab content: Keyboard -->
@@ -155,6 +140,27 @@
             <button id="submit-pin" class="btn-primary">Connect TV</button>
             <button id="cancel-pairing"
                 style="margin-top: 1rem; background: transparent; border: none; color: var(--text-secondary); cursor: pointer;">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Manage Apps Modal -->
+    <div id="manage-apps-overlay" class="overlay hidden">
+        <div class="pin-modal" style="max-height: 90vh; overflow-y: auto;">
+            <h2 style="margin-bottom: 1rem;">Manage Apps</h2>
+            
+            <div id="manage-apps-list" style="display: flex; flex-direction: column; gap: 0.5rem; text-align: left; margin-bottom: 1.5rem;">
+                <!-- App list injected here -->
+            </div>
+
+            <div style="border-top: 1px solid var(--glass-border); padding-top: 1.5rem; margin-top: 1.5rem; text-align: left;">
+                <h3 style="font-size: 1rem; margin-bottom: 1rem;">Add New App</h3>
+                <input type="text" id="new-app-name" class="kbd-input" style="margin-top: 0; margin-bottom: 0.75rem;" placeholder="App Name (e.g. Netflix)">
+                <input type="text" id="new-app-pkg" class="kbd-input" style="margin-top: 0; margin-bottom: 0.75rem;" placeholder="Package Name / URL">
+                <input type="text" id="new-app-icon" class="kbd-input" style="margin-top: 0; margin-bottom: 1rem;" placeholder="Icon URL (https://...)">
+                <button id="add-app-btn" class="btn-primary">Add App</button>
+            </div>
+
+            <button id="close-manage-apps" style="margin-top: 1.5rem; background: transparent; border: none; color: var(--text-secondary); cursor: pointer;">Close</button>
         </div>
     </div>
 

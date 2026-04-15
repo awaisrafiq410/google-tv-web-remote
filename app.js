@@ -219,10 +219,119 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// App Launchers
-document.querySelectorAll('[data-app]').forEach(btn => {
-    btn.onclick = () => sendCommand(btn.dataset.app, { is_app: true });
-});
+// App Management Logic
+const PERMANENT_APPS = [
+    { name: 'YouTube', pkg: 'https://www.youtube.com', icon: '/assets/youtube.png', permanent: true },
+    { name: 'Jellyfin', pkg: 'org.jellyfin.androidtv', icon: '/assets/jellyfin.png', permanent: true },
+    { name: 'YT Music', pkg: 'com.google.android.youtube.tvmusic', icon: '/assets/yt_music.png', permanent: true }
+];
+
+const INITIAL_CUSTOM_APPS = [
+    { name: 'Netmirror', pkg: 'app.netmirror.newtv', icon: '/assets/netmirror.png', permanent: false },
+    { name: 'Stremio', pkg: 'com.stremio.one', icon: '/assets/stremio.png', permanent: false },
+    { name: 'On Stream', pkg: 'com.maertsno.tv', icon: '/assets/onstrem.png', permanent: false }
+];
+
+if (!localStorage.getItem('apps_initiated')) {
+    localStorage.setItem('custom_apps', JSON.stringify(INITIAL_CUSTOM_APPS));
+    localStorage.setItem('apps_initiated', 'true');
+}
+
+let customApps = JSON.parse(localStorage.getItem('custom_apps') || '[]');
+
+function getAllApps() {
+    return [...PERMANENT_APPS, ...customApps];
+}
+
+function renderApps() {
+    const container = document.getElementById('apps-container');
+    const manageList = document.getElementById('manage-apps-list');
+    
+    if(!container || !manageList) return;
+
+    container.innerHTML = '';
+    manageList.innerHTML = '';
+    
+    const allApps = getAllApps();
+    
+    allApps.forEach((app) => {
+        // Render main grid button
+        const btn = document.createElement('button');
+        btn.className = 'app-btn';
+        btn.dataset.app = app.pkg;
+        btn.innerHTML = `
+            <img src="${app.icon}" alt="${app.name}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'40\\' height=\\'40\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'white\\' stroke-width=\\'2\\' stroke-linecap=\\'round\\' stroke-linejoin=\\'round\\'><rect x=\\'2\\' y=\\'2\\' width=\\'20\\' height=\\'20\\' rx=\\'5\\' ry=\\'5\\'/></svg>'">
+            ${app.name}
+        `;
+        btn.onclick = () => sendCommand(app.pkg, { is_app: true });
+        container.appendChild(btn);
+        
+        // Render manage list item
+        const item = document.createElement('div');
+        item.className = 'manage-app-item';
+        item.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="${app.icon}" style="width: 24px; height: 24px; border-radius: 6px;" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'24\\' height=\\'24\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'white\\' stroke-width=\\'2\\'><rect x=\\'2\\' y=\\'2\\' width=\\'20\\' height=\\'20\\' rx=\\'5\\'/></svg>'">
+                <span style="font-size: 0.875rem;">${app.name}</span>
+            </div>
+            <button class="btn-delete" ${app.permanent ? 'disabled title="Cannot delete permanent app"' : `title="Delete ${app.name}"`} onclick="deleteApp('${app.pkg}')">
+                <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+            </button>
+        `;
+        manageList.appendChild(item);
+    });
+    
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+}
+
+// Make deleteApp globally accessible for the onclick attribute
+window.deleteApp = function(pkg) {
+    const allApps = getAllApps();
+    const appToDelete = allApps.find(a => a.pkg === pkg);
+    if (!appToDelete || appToDelete.permanent) return;
+    
+    customApps = customApps.filter(a => a.pkg !== pkg);
+    localStorage.setItem('custom_apps', JSON.stringify(customApps));
+    renderApps();
+};
+
+document.getElementById('add-app-btn').onclick = () => {
+    const name = document.getElementById('new-app-name').value.trim();
+    const pkg = document.getElementById('new-app-pkg').value.trim();
+    const icon = document.getElementById('new-app-icon').value.trim();
+    
+    if (!name || !pkg || !icon) {
+        alert("Please fill in all fields (Name, Package, and Icon URL) to add a new app.");
+        return;
+    }
+    
+    if (getAllApps().some(a => a.pkg === pkg)) {
+        alert("An app with this package name or URL already exists.");
+        return;
+    }
+    
+    customApps.push({ name, pkg, icon, permanent: false });
+    localStorage.setItem('custom_apps', JSON.stringify(customApps));
+    
+    document.getElementById('new-app-name').value = '';
+    document.getElementById('new-app-pkg').value = '';
+    document.getElementById('new-app-icon').value = '';
+    
+    renderApps();
+};
+
+document.getElementById('open-manage-apps').onclick = () => {
+    document.getElementById('manage-apps-overlay').classList.remove('hidden');
+};
+
+document.getElementById('close-manage-apps').onclick = () => {
+    document.getElementById('manage-apps-overlay').classList.add('hidden');
+};
+
+// Initial Render
+renderApps();
 
 // Tab Switching
 document.querySelectorAll('.tab-btn').forEach(btn => {
