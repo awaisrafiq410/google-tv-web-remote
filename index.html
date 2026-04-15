@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    
+
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#38bdf8">
@@ -15,6 +16,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="/assets/icon-192.png">
 </head>
+
 <body>
     <div class="container">
         <h1>Google TV Remote</h1>
@@ -37,9 +39,11 @@
         <div id="remote-card" class="card hidden">
             <!-- Top Header Row -->
             <div class="top-row">
-                <button class="btn-remote btn-circle btn-power" data-command="POWER"><i data-lucide="power"></i></button>
+                <button class="btn-remote btn-circle btn-power" data-command="POWER"><i
+                        data-lucide="power"></i></button>
                 <div class="header-title">Remote</div>
-                <button class="btn-remote btn-circle btn-mute" data-command="MUTE"><i data-lucide="volume-x"></i></button>
+                <button class="btn-remote btn-circle btn-mute" data-command="MUTE"><i
+                        data-lucide="volume-x"></i></button>
             </div>
 
             <div class="remote-grid">
@@ -54,10 +58,14 @@
                     <!-- Centered Circular D-Pad -->
                     <div class="dpad-container">
                         <div class="dpad-ring">
-                            <button class="btn-dpad dpad-up" data-command="DPAD_UP"><i data-lucide="chevron-up"></i></button>
-                            <button class="btn-dpad dpad-down" data-command="DPAD_DOWN"><i data-lucide="chevron-down"></i></button>
-                            <button class="btn-dpad dpad-left" data-command="DPAD_LEFT"><i data-lucide="chevron-left"></i></button>
-                            <button class="btn-dpad dpad-right" data-command="DPAD_RIGHT"><i data-lucide="chevron-right"></i></button>
+                            <button class="btn-dpad dpad-up" data-command="DPAD_UP"><i
+                                    data-lucide="chevron-up"></i></button>
+                            <button class="btn-dpad dpad-down" data-command="DPAD_DOWN"><i
+                                    data-lucide="chevron-down"></i></button>
+                            <button class="btn-dpad dpad-left" data-command="DPAD_LEFT"><i
+                                    data-lucide="chevron-left"></i></button>
+                            <button class="btn-dpad dpad-right" data-command="DPAD_RIGHT"><i
+                                    data-lucide="chevron-right"></i></button>
                             <button class="btn-remote btn-center" data-command="DPAD_CENTER">OK</button>
                         </div>
                     </div>
@@ -88,7 +96,7 @@
                             <img src="/assets/yt_music.png" alt="YT Music" onerror="this.classList.add('hidden')">
                             YT Music
                         </button>
-                        <button class="app-btn" data-app="com.netmirror.app">
+                        <button class="app-btn" data-app="app.netmirror.newtv">
                             <img src="/assets/netmirror.png" alt="Netmirror" onerror="this.classList.add('hidden')">
                             Netmirror
                         </button>
@@ -102,8 +110,10 @@
                 <!-- Tab content: Keyboard -->
                 <div id="tab-kbd" class="tab-content">
                     <div style="width: 100%;">
-                        <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Keyboard Input (Press Enter to send)</p>
-                        <input type="text" id="keyboard-input" class="kbd-input" placeholder="Type here to send text to TV...">
+                        <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Keyboard
+                            Input (Press Enter to send)</p>
+                        <input type="text" id="keyboard-input" class="kbd-input"
+                            placeholder="Type here to send text to TV...">
                     </div>
                 </div>
             </div>
@@ -143,10 +153,12 @@
             <p style="color: var(--text-secondary); margin-top: 0.5rem;">Enter the 6-digit code displayed on your TV</p>
             <input type="text" id="pin-input" class="pin-input" maxlength="6" placeholder="000000">
             <button id="submit-pin" class="btn-primary">Connect TV</button>
-            <button id="cancel-pairing" style="margin-top: 1rem; background: transparent; border: none; color: var(--text-secondary); cursor: pointer;">Cancel</button>
+            <button id="cancel-pairing"
+                style="margin-top: 1rem; background: transparent; border: none; color: var(--text-secondary); cursor: pointer;">Cancel</button>
         </div>
     </div>
 
     <script src="app.js"></script>
 </body>
+
 </html>
