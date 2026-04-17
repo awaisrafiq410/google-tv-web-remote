@@ -39,6 +39,17 @@ Instead, we implemented a smarter workaround for the web:
 3. Your browser transcribes the text and immediately sends a **Deep Link Intent** to the TV.
 4. The TV wakes up and launches a **YouTube Search** for your exact query globally!
 
+### Troubleshooting: "Microphone Blocked to protect your privacy"
+Modern browsers strictly block microphone access over non-secure `http://` connections. If you access your remote via an IP address (e.g., `http://192.168.1.50:8504`), the microphone will fail to start.
+
+**Ways to fix this:**
+1. **Use HTTPS**: Route your connection through a reverse proxy (like Nginx Proxy Manager or Cloudflare Tunnels) with a valid SSL certificate.
+2. **Chrome/Edge Local Bypass (Quick Fix)**:
+   - Type `chrome://flags/#unsafely-treat-insecure-origin-as-secure` (or `edge://flags...`) in your browser's address bar.
+   - Enter your exact remote URL (e.g., `http://192.168.1.50:8504`) into the text box.
+   - Change the dropdown to **Enabled** and click **Relaunch**.
+3. **Localhost**: If running on the same machine, access it via `http://localhost:8504`. Browsers treat localhost as perfectly secure.
+
 ## ⌨️ Keyboard & Shortcuts
 - **Global Shortcuts**: `Space` (Play/Pause), `M` (Mute), and `Arrows` are active on all tabs.
 - **Keyboard Tab**: Currently disabled due to library compatibility issues with native text input. Use physical keyboard shortcuts for navigation and media control.
