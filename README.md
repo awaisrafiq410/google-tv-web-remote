@@ -28,6 +28,17 @@ The **Apps Tab** has a dynamic app management system where you can customize you
 - **Permanent Apps**: Core ecosystem apps (YouTube, YT Music, Jellyfin) are permanently protected and cannot be deleted.
 - **Persistence**: Your customized app list is stored locally in your browser's `localStorage` and will persist across sessions.
 
+## 🎙️ Smart Voice Search
+The remote includes a Mic button that uses your browser's Web Speech API to transcribe your voice and instantly send it to the TV. 
+
+**How it works:**
+Because web browsers cannot live-stream raw microphone audio over the Android TV TCP protocol (which requires complex 16-bit PCM downsampling and Protobuf packet injection), we cannot natively trigger the TV's Google Assistant overlay from a web browser. 
+Instead, we implemented a smarter workaround for the web:
+1. Tap the **Mic** button (it will pulse red).
+2. Speak your query (e.g. "Spiderman").
+3. Your browser transcribes the text and immediately sends a **Deep Link Intent** to the TV.
+4. The TV wakes up and launches a **YouTube Search** for your exact query globally!
+
 ## ⌨️ Keyboard & Shortcuts
 - **Global Shortcuts**: `Space` (Play/Pause), `M` (Mute), and `Arrows` are active on all tabs.
 - **Keyboard Tab**: Currently disabled due to library compatibility issues with native text input. Use physical keyboard shortcuts for navigation and media control.

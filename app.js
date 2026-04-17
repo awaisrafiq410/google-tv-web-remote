@@ -184,7 +184,7 @@ document.querySelectorAll('.btn-remote, .btn-nav, .btn-media, .btn-dpad').forEac
     btn.addEventListener('touchend', stopRepeat);
 });
 
-// Voice Search (Mic) Implementation
+// Smart Voice Search (Web Speech API -> YouTube Deep Link)
 const micBtn = document.getElementById('mic-btn');
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -198,14 +198,17 @@ if (SpeechRecognition && micBtn) {
 
     recognition.onstart = function() {
         isRecording = true;
+        // Add visual pulsing feedback to the UI
         micBtn.classList.add('mic-active');
     };
 
     recognition.onresult = function(event) {
         const transcript = event.results[0][0].transcript;
         if (transcript) {
-            // Send the transcribed text to the TV
-            sendCommand(transcript, { is_text: true });
+            // Because we cannot send raw audio natively to Google Assistant, 
+            // we route the voice transcription as a direct YouTube search intent
+            const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(transcript)}`;
+            sendCommand(searchUrl, { is_app: true });
         }
     };
 
@@ -213,6 +216,10 @@ if (SpeechRecognition && micBtn) {
         console.error('Speech recognition error: ' + event.error);
         micBtn.classList.remove('mic-active');
         isRecording = false;
+        
+        if (event.error === 'not-allowed') {
+            alert('Microphone access denied. Please allow microphone permissions in your browser settings.');
+        }
     };
 
     recognition.onend = function() {
@@ -224,9 +231,8 @@ if (SpeechRecognition && micBtn) {
         if (isRecording) {
             recognition.stop();
         } else {
-            // Trigger TV's search/assistant overlay first, then start listening on browser
-            sendCommand('SEARCH'); 
             try {
+                // Instantly starts listening on the phone/browser
                 recognition.start();
             } catch (e) {
                 console.error('Failed to start recognition:', e);
