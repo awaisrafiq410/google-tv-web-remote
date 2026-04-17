@@ -184,6 +184,59 @@ document.querySelectorAll('.btn-remote, .btn-nav, .btn-media, .btn-dpad').forEac
     btn.addEventListener('touchend', stopRepeat);
 });
 
+// Voice Search (Mic) Implementation
+const micBtn = document.getElementById('mic-btn');
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition && micBtn) {
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    let isRecording = false;
+
+    recognition.onstart = function() {
+        isRecording = true;
+        micBtn.classList.add('mic-active');
+    };
+
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        if (transcript) {
+            // Send the transcribed text to the TV
+            sendCommand(transcript, { is_text: true });
+        }
+    };
+
+    recognition.onerror = function(event) {
+        console.error('Speech recognition error: ' + event.error);
+        micBtn.classList.remove('mic-active');
+        isRecording = false;
+    };
+
+    recognition.onend = function() {
+        micBtn.classList.remove('mic-active');
+        isRecording = false;
+    };
+
+    micBtn.onclick = () => {
+        if (isRecording) {
+            recognition.stop();
+        } else {
+            // Trigger TV's search/assistant overlay first, then start listening on browser
+            sendCommand('SEARCH'); 
+            try {
+                recognition.start();
+            } catch (e) {
+                console.error('Failed to start recognition:', e);
+            }
+        }
+    };
+} else if (micBtn) {
+    micBtn.onclick = () => alert('Voice search is not supported in this browser. Try Chrome/Safari.');
+}
+
 // Keyboard mapping
 const KEY_MAP = {
     'ArrowUp': 'DPAD_UP',
